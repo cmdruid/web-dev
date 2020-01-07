@@ -1,7 +1,3 @@
-## web-dev Project Page
-
-A place for hosting simple web-based demo projects.
-
 ### Table of Contents
 
 - [**ghibli-demo**](https://cmdruid.github.io/web-dev/ghibli-demo/)  
