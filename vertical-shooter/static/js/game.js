@@ -370,6 +370,9 @@ function init() {
   document.addEventListener('keyup', keyUp, false);
   document.addEventListener('click', gameStart, false);
 
+  // Experimental touch controls.
+  registerControls();
+
   // Generate enemies, set defaults, and start game loop.
   genEnemies();
   reset();
@@ -454,6 +457,80 @@ function continueButton(e) {
         canvas.removeEventListener('click', continueButton, false);
   }
 }
+
+
+function registerControls() {
+  /* == touchControls ==
+  * Setup touch events for mobile and other devices
+  * using HTML5 canvas event listeners for touch input.
+  */
+
+  var playerX = ship_x, playerY = ship_y,
+      playerWidth = ship_w, playerHeight = ship_h;
+
+  var canvas = document.getElementsByTagName("canvas")[0];
+
+  canvas.addEventListener("touchstart", touchHandler);
+  canvas.addEventListener("touchmove", touchHandler);
+  canvas.addEventListener("mousemove", mouseMoveHandler);
+
+  function mouseMoveHandler(e) {
+    playerX = e.pageX - canvas.offsetLeft - playerWidth / 2;
+    playerY = e.pageY - canvas.offsetTop - playerHeight / 2;
+    output.innerHTML = "Mouse: x(" + playerX + ") y(" + playerY + ")";
+  }
+
+  function touchHandler(e) {
+    if (e.touches) {
+      playerX = e.touches[0].pageX - canvas.offsetLeft - playerWidth / 2;
+      playerY = e.touches[0].pageY - canvas.offsetTop - playerHeight / 2;
+      output.innerHTML = "Touch: x(" + playerX + ") y(" + playerY + ")";
+      e.preventDefault();
+    }
+  }
+}
+
+
+function touchControlsBeta() {
+
+  // Touch-start event.
+  canvas.addEventListener("touchstart", function (e) {
+    mousePos = getTouchPos(canvas, e);
+    var touch = e.touches[0];
+    var mouseEvent = new MouseEvent("mousedown", {
+      clientX: touch.clientX,
+      clientY: touch.clientY
+    });
+    canvas.dispatchEvent(mouseEvent);
+  }, false);
+
+  // Touch-end event.
+  canvas.addEventListener("touchend", function (e) {
+    var mouseEvent = new MouseEvent("mouseup", {});
+    canvas.dispatchEvent(mouseEvent);
+  }, false);
+
+  // Touch-move event.
+  canvas.addEventListener("touchmove", function (e) {
+    var touch = e.touches[0];
+    var mouseEvent = new MouseEvent("mousemove", {
+      clientX: touch.clientX,
+      clientY: touch.clientY
+    });
+    canvas.dispatchEvent(mouseEvent);
+  }, false);
+
+  // Get touch position relative to the canvas.
+  function getTouchPos(canvasDom, touchEvent) {
+    var rect = canvasDom.getBoundingClientRect();
+    return {
+      x: touchEvent.touches[0].clientX - rect.left,
+      y: touchEvent.touches[0].clientY - rect.top,
+    };
+  }
+}
+
+
 
 
 function getCursorPos(e) {
