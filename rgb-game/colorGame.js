@@ -2,7 +2,7 @@
  * Global Variables
  */
 var colors = [], pickedColor = "rgb(0, 0, 0)", numSquares = 6;
-background = "#232323";
+var background = "#232323";
 
 /*
  *  Document Selectors
@@ -10,8 +10,6 @@ background = "#232323";
 
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#resetButton");
-var easyButton = document.querySelector("#easyBtn");
-var hardButton = document.querySelector("#hardBtn");
 var messageDisplay = document.querySelector("#messageDisplay");
 var colorDisplay = document.querySelector("#colorDisplay");
 var squares = document.querySelectorAll(".square");
@@ -34,11 +32,11 @@ function newGame() {
 
   // Give each square an available color from the colors list.
   // Hide any extra squares that do not have a color.
-  for (i = 0; i < squares.length; i++) {
+  for (var i = 0; i < squares.length; i++) {
     if (colors[i]) {
-      squares[i].style.backgroundColor = colors[i]
+      squares[i].style.backgroundColor = colors[i];
     } else {
-      squares[i].style.backgroundColor = background
+      squares[i].style.backgroundColor = background;
     }
   }
 }
@@ -48,13 +46,13 @@ function updateButtons() {
   /* Helper function for updating our game-mode buttons. */
 
   // Clear active class from all buttons, apply to current button.
-  modes.forEach(function(mode) {mode.classList.remove("active")});
+  modes.forEach(function(mode) {mode.classList.remove("active");});
   this.classList.add("active");
 
   // If the current mode button is "Easy", decrease the difficulty
   // by reducing nuber of squares. Then reset the game.
-  numSquares = (this.textContent === "Easy") ? 3 : 6
-  newGame()
+  numSquares = (this.textContent === "Easy") ? 3 : 6;
+  newGame();
 }
 
 function updateSquares() {
@@ -82,38 +80,28 @@ function updateSquares() {
 
 function changeColors(color) {
   /* Helper function to change all the squares on the game
-   * board to the same matching :color: (RGB) value.
-   */
+   * board to the same matching :color: (RGB) value. */
 
-  // Change the title
   h1.style.backgroundColor = color;
-
-  for (var i = 0; i < colors.length; i++) {
-    squares[i].style.backgroundColor = color;
-  }
+  squares.forEach(function(sq) {sq.style.backgroundColor = color;});
 }
 
 
 function genRandomColors(num) {
   /* Create an array of :num: size, and fill it with colors
-   * using random RGB values.
-   */
+   * using random RGB values. */
+
   var arr = [];
-
-  // Iterate through our for loop using :num: size.
-  for (var i = 0; i < num; i ++) {
-
-    // Add our color to the array, with randomized RGB values.
-    arr.push(`rgb(${random(256)}, ${random(256)}, ${random(256)})`)
+  for (var i = 0; i < num; i++) {
+    arr.push(`rgb(${random(256)}, ${random(256)}, ${random(256)})`);
   }
-
-  // Return the array.
-  return arr
+  return arr;
 }
 
 
 function random(range) {
   /* Generate a random number within :range: values. */
+  
   return Math.floor(Math.random() * (range));
 }
 
@@ -125,9 +113,9 @@ window.addEventListener('load', newGame);
 resetButton.addEventListener("click", newGame);
 
 squares.forEach(function(square) {
-  square.addEventListener("click", updateSquares)
+  square.addEventListener("click", updateSquares);
 });
 
 modes.forEach(function(btn) {
-  btn.addEventListener("click", updateButtons)
-})
+  btn.addEventListener("click", updateButtons);
+});
