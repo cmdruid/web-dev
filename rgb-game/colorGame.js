@@ -1,6 +1,7 @@
 /*
  * Global Variables
  */
+ 
 var colors = [], pickedColor = "rgb(0, 0, 0)", numSquares = 6;
 var background = "#232323";
 
@@ -58,8 +59,7 @@ function updateButtons() {
 function updateSquares() {
   /* Update our square tile when clicked. If the player picks
    * our winning square, do something cool. Otherwise, hide
-   * the square from the game board.
-   */
+   * the square from the game board. */
 
   // Fetch the color of our square.
   var clickedColor = this.style.backgroundColor;
@@ -101,7 +101,7 @@ function genRandomColors(num) {
 
 function random(range) {
   /* Generate a random number within :range: values. */
-  
+
   return Math.floor(Math.random() * (range));
 }
 

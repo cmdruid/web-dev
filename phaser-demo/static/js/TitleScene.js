@@ -1,6 +1,10 @@
+// Imports
+import loadAssets from './loadAssets.js';
+
 // Title screen
 
-class TitleScene extends Phaser.Scene {
+
+export default class TitleScene extends Phaser.Scene {
 
   // Prepare Assets.
   constructor() {
@@ -9,11 +13,7 @@ class TitleScene extends Phaser.Scene {
 
   // Preload Assets.
   preload() {
-    this.load.image("background", "static/assets/images/background.png")
-    this.load.image("ship", "static/assets/images/ship.png")
-    this.load.image("ship2", "static/assets/images/ship2.png")
-    this.load.image("ship3", "static/assets/images/ship3.png")
-
+    loadAssets().call(this);
   }
 
   // Create Scene.
