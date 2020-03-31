@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+
+  <body>
+    <div class="ui fixed inverted menu">
+      <div class="ui container">
+          <a class="header item" href="/">
+              <i class="code icon"></i>Generator Demo
+          </a>
+          
+          <a class="item right" href="/">Reset</a>
+          </div>
+      </div>
+  </div>
+    <div class="ui stackable container main">
+      <div class="ui two column grid">
+        <div class="column">
+          <div class="ui segment inverted">
+            <h2 class="ui horizontal left aligned divider header">Controls</h2>
+            <form class="ui form inverted">
+              <div class="two fields">
+                <div class="field">
+                  <label class="inverted">Modulo:</label>
+                  <input type="number" name="base" value="60" min="2" max="999">
+                </div>
+  
+                <div class="field">
+                  <label>Loops:</label>
+                  <input type="number" name="count" value="30" min="1" max="999">
+                </div>
+              </div>
+  
+              <div class="two fields">
+                <div class="field">
+                  <label>F1:</label>
+                  <input type="number" name="a" value="0" min="0" max="999">
+                </div>
+                
+                <div class="field">
+                  <label>F2:</label>
+                  <input type="number" name="b" value="1" min="1" max="999">
+                </div>
+              </div>
+                  
+              <div class="two fields">
+                <div class="field">
+                  <label>Draw with:</label>
+                  <select name="draw">
+                      <option value="bias">Bias</option>
+                      <option value="num">Number</option>
+                  </select>
+                </div>
+  
+                <div class="field">
+                  <label>Turn with:</label>
+                  <select name="turn">
+                      <option value="num">Number</option>
+                      <option value="bias">Bias</option>
+                  </select>
+                </div>
+              </div>
+  
+              <div class="two fields">
+                <div class="field">
+                  <label>Draw scale:</label>
+                  <input type="number" name="scale" value="1.0" min="0" max="10" step="0.05">
+                </div>
+  
+                <div class="field">
+                  <label>Bias Limit:</label>
+                  <input type="number" name="limit" value="2" min="0" max="100" step="1">
+                </div>
+              </div>
+                  
+              <div class="two fields">
+                <div class="field">
+                  <label>X Offset:</label>
+                  <input type="number" name="xo" value="0" min="-400" max="400">
+                </div>
+      
+                <div class="field">
+                  <label>Y Offset:</label>
+                  <input type="number" name="yo" value="0" min="-400" max="400">
+                </div>
+              </div>
+  
+              <div class="four fields">
+                <div class="field">
+                  <label>Delay(ms):</label>
+                  <input type="number" name="delay" value="5" min="0" max="500">
+                </div>
+                <div class="field">
+                  <label>Color:</label>
+                  <input type="color" name="drawColor" value="#33FF33">
+                </div>
+                <div class="field">
+                  <label>Mark Loops</label>
+                  <input type="checkbox" name="mark">
+                </div>
+                <div class="field">
+                  <label>Mark Color:</label>
+                  <input type="color" name="markColor" value="#FFFFFF">
+                </div>
+              </div>
+
+              <div class="two fields">
+                <div class="field">
+                  <input class="ui button submit" type="submit" value="Draw!">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+  
+        <div class="column">
+          <div class="ui segment inverted">
+            <h2 class="ui horizontal left aligned divider header">Waveform</h2>
+            <div class="scroll">
+              <pre id="wave"></pre>
+              <pre id="ticker"></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui one column grid">
+        <div class="column">
+          <div id="drawColumn" class="ui segment inverted">
+            <h2 class="ui horizontal left aligned divider header">Canvas</h2>
+            <canvas id="draw"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script src="canvas.js"></script>
+  </body>
+</html>
