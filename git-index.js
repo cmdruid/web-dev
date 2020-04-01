@@ -12,7 +12,7 @@ function getRootURL() {
     /* Returns origin URL for the webpage DOM. */
 
     const { protocol, host } = window.location;
-    return `${protocol}//${host}/`;
+    return `${protocol}//${host}/${repository}/`;
 }
 
 async function fetchRepoSHA() {
