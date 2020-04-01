@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>cmdruid.github.io</title>
-    <meta name="cover" content="">
+    <title>Web Development | cmdruid.github.io</title>
     <meta name="description" content="">
+    <meta name="tags" content="">
+    <meta name="cover" content="">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -18,12 +19,18 @@
 
     <div class="ui fixed inverted menu">
       <div class="ui container">
-          <a class="header item" href="/">
+          <a class="header item" href="./">
               <i class="code icon"></i>cmdruid.github.io
           </a>
           
-          <a class="item right" href="./">Reset</a>
+          <div class="item right">
+            <a id="github-btn" class="ui green github button" href="./">
+              <i class="github icon"></i>
+              View on GitHub
+            </a>
           </div>
+          
+        </div>
       </div>
     </div>
 
@@ -33,10 +40,10 @@
       <div class="ui column grid">
         <div class="column">
           <div class="ui segment">
-            <h2 class="ui horizontal left aligned divider header">Web-Dev Projects</h2>
-            <span class="description">This section is auto-generated using Github's (awesome) API.</span>
-            <div id="cardDeck" class="ui cards"></div>
+            <h2 class="ui horizontal center aligned divider header">Web-Dev Projects</h2>
+            <p>This section is auto-generated using custom javascript and GitHub's API. You can view the <a href="./git-index.js">source code</a> here.</p>
           </div>
+          <div id="cardDeck" class="ui three cards"></div>
         </div>
       </div>
     </div>

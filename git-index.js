@@ -6,6 +6,7 @@ const username   = "cmdruid",       // Username on Github.
       selector   = '#cardDeck',     // CSS selector for the card container.
       endpoint   = `https://api.github.com/repos/${username}/${repository}`;
 
+setGitHubLink();
 renderCards();
 
 function getRootURL() {
@@ -13,6 +14,12 @@ function getRootURL() {
 
     const { protocol, host } = window.location;
     return `${protocol}//${host}/${repository}/`;
+}
+
+function setGitHubLink() {
+    const url = `https://github.com/${username}/${repository}/`,
+          btn = document.querySelector('#github-btn');
+    if (btn) btn.setAttribute('href', url);
 }
 
 async function fetchRepoSHA() {
@@ -67,23 +74,14 @@ function generateCard(dir, page) {
 
     const url     = getRootURL() + dir + "/",
           title   = page.querySelector('title'),
-          desc    = page.querySelector('meta[name="description]'),
+          desc    = page.querySelector('meta[name="description"]'),
           cover   = page.querySelector('meta[name="cover"]');
           
     let image = (cover) ? url + cover.getAttribute("content") : `//image.thum.io/get/${url}`;
 
-    const card    = document.createElement('div'),
+    const card    = document.createElement('a'),
           content = document.createElement('div'),
-          header  = document.createElement('a');
-
-    card.setAttribute('class', 'ui card');
-    content.setAttribute('class', 'content');
-    card.appendChild(content);
-
-    header.textContent = (title) ? title.innerText : dir;
-    header.setAttribute('class', 'header');
-    header.setAttribute('href', url);
-    content.appendChild(header);
+          header  = document.createElement('div');
 
     if (image) {
 
@@ -95,8 +93,17 @@ function generateCard(dir, page) {
         
         div.setAttribute('class', 'image');
         div.appendChild(img);
-        content.appendChild(div);
+        card.appendChild(div);
     }
+
+    card.setAttribute('class', 'ui card raised centered');
+    card.setAttribute('href', url);
+    content.setAttribute('class', 'content');
+    card.appendChild(content);
+
+    header.textContent = (title) ? title.innerText : dir;
+    header.setAttribute('class', 'header');
+    content.appendChild(header);
 
     if (desc) {
 
