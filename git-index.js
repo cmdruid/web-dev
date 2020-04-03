@@ -6,7 +6,6 @@ const username   = "cmdruid",       // Username on Github.
       selector   = '#cardDeck',     // CSS selector for the card container.
       endpoint   = `https://api.github.com/repos/${username}/${repository}`;
 
-setGitHubLink();
 renderCards();
 
 function getRootURL() {
@@ -14,12 +13,6 @@ function getRootURL() {
 
     const { protocol, host } = window.location;
     return `${protocol}//${host}/${repository}/`;
-}
-
-function setGitHubLink() {
-    const url = `https://github.com/${username}/${repository}/`,
-          btn = document.querySelector('#github-btn');
-    if (btn) btn.setAttribute('href', url);
 }
 
 async function fetchRepoSHA() {
