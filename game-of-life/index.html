@@ -7,19 +7,21 @@
     <meta name="description" content="Simple demonstration of John Conway's game of life ruleset.">
     <meta name="cover" content="cover.png">
 
+    <link rel="stylesheet" href="style.css">
+
   </head>
   <body>
-    <div class="ui stackable container main">
+    <div class="ui stackable center aligned grid container">
       <div class="ui column">
-        <div class="ui segment">
+        <div class="ui segment inverted">
           <h2 class="ui horizontal aligned divider header">Game of Life</h2>
-          <p>Game of Life demo.</p>
-          <canvas id="myCanvas" width="400" height="400"
-                  style="border:1px solid #000000;">
-          </canvas>
+        </div>
+        <div class="ui segment">
+          <canvas id="canvas"></canvas>
         </div>
       </div>
     </div>
+    
   </body>
   <script src="../template.js"></script>
   <script src="gol.js" charset="utf-8"></script>

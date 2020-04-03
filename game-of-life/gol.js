@@ -1,17 +1,19 @@
-var gridHeight = 400;
-var gridWidth = 400;
-var theGrid = createArray(gridWidth);
-var mirrorGrid = createArray(gridWidth);
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
+const c          = document.querySelector('#canvas'),
+      ctx        = c.getContext("2d"),
+      gridHeight = c.height = 400,
+      gridWidth  = c.width  = 400;
+
+let theGrid    = createArray(gridWidth),
+    mirrorGrid = createArray(gridWidth);
+
 ctx.fillStyle = "#FF0000";
 
-fillRandom(); //create the starting state for the grid by filling it with random cells
+fillRandom();
+tick();
 
-tick(); //call main loop
+function tick() {
+    /* Main event loop. */
 
-//functions
-function tick() { //main loop
     console.time("loop");
     drawGrid();
     updateGrid();
@@ -19,84 +21,82 @@ function tick() { //main loop
     requestAnimationFrame(tick);
 }
 
-function createArray(rows) { //creates a 2 dimensional array of required height
-    var arr = [];
-    for (var i = 0; i < rows; i++) {
-        arr[i] = [];
-    }
+function createArray(rows) {
+    /* Create a 2d array of required height. */
+    
+    let arr = [];
+    for (let i = 0; i < rows; i++) arr[i] = [];
+
     return arr;
 }
 
-function fillRandom() { //fill the grid randomly
-    for (var j = 100; j < gridHeight - 100; j++) { //iterate through rows
-        for (var k = 100; k < gridWidth - 100; k++) { //iterate through columns
+function fillRandom() {
+    /* Fill the grid randomly. */
+
+    for (let j = 100; j < gridHeight - 100; j++) {
+        for (let k = 100; k < gridWidth - 100; k++) {
             theGrid[j][k] = Math.round(Math.random());
         }
     }
 }
 
-function drawGrid() { //draw the contents of the grid onto a canvas
-var liveCount = 0;
-    ctx.clearRect(0, 0, gridHeight, gridWidth); //this should clear the canvas ahead of each redraw
-    for (var j = 1; j < gridHeight; j++) { //iterate through rows
-        for (var k = 1; k < gridWidth; k++) { //iterate through columns
+function drawGrid() {
+    /* Draw the contents of the grid onto a canvas. */
+
+    let liveCount = 0;
+    ctx.clearRect(0, 0, gridHeight, gridWidth);
+
+    for (let j = 1; j < gridHeight; j++) {
+        for (let k = 1; k < gridWidth; k++) {
+
             if (theGrid[j][k] === 1) {
                 ctx.fillRect(j, k, 1, 1);
-                  liveCount++;
-
+                liveCount++;
             }
         }
     }
-      console.log(liveCount/100);
 }
 
-function updateGrid() { //perform one iteration of grid update
+function updateGrid() {
+    /* Perform one iteration of update to the grid. */
 
-    for (var j = 1; j < gridHeight - 1; j++) { //iterate through rows
-        for (var k = 1; k < gridWidth - 1; k++) { //iterate through columns
-            var totalCells = 0;
-            //add up the total values for the surrounding cells
-            totalCells += theGrid[j - 1][k - 1]; //top left
-            totalCells += theGrid[j - 1][k]; //top center
-            totalCells += theGrid[j - 1][k + 1]; //top right
+    for (let j = 1; j < gridHeight - 1; j++) { 
+        for (let k = 1; k < gridWidth - 1; k++) {
 
-            totalCells += theGrid[j][k - 1]; //middle left
-            totalCells += theGrid[j][k + 1]; //middle right
+            /* Add up the total values for the surrounding cells. */
+            let totalCells = 0;
 
-            totalCells += theGrid[j + 1][k - 1]; //bottom left
-            totalCells += theGrid[j + 1][k]; //bottom center
-            totalCells += theGrid[j + 1][k + 1]; //bottom right
+            totalCells += theGrid[j - 1][k - 1];  // Top-left.
+            totalCells += theGrid[j - 1][k];      // Top-center.
+            totalCells += theGrid[j - 1][k + 1];  // Top-right.
 
-            //apply the rules to each cell
+            totalCells += theGrid[j][k - 1];      // Mid-left.
+            totalCells += theGrid[j][k + 1];      // Mid-center.
+
+            totalCells += theGrid[j + 1][k - 1];  // Bot-left.
+            totalCells += theGrid[j + 1][k];      // Bot-center.
+            totalCells += theGrid[j + 1][k + 1];  // Bot-right.
+
+            /* Apply the rules to each cell. */
             switch (totalCells) {
-                case 2:
-                    mirrorGrid[j][k] = theGrid[j][k];
-
-                    break;
-                case 3:
-                    mirrorGrid[j][k] = 1; //live
-
-                    break;
-                default:
-                    mirrorGrid[j][k] = 0; //
+                case 2:  mirrorGrid[j][k] = theGrid[j][k]; break;
+                case 3:  mirrorGrid[j][k] = 1;             break;
+                default: mirrorGrid[j][k] = 0; 
             }
         }
     }
 
-    //mirror edges to create wraparound effect
+    /* Mirror edges of grid to create a wrap-around effect. */
+    for (let l = 1; l < gridHeight - 1; l++) {
 
-    for (var l = 1; l < gridHeight - 1; l++) { //iterate through rows
-        //top and bottom
-        mirrorGrid[l][0] = mirrorGrid[l][gridHeight - 3];
-        mirrorGrid[l][gridHeight - 2] = mirrorGrid[l][1];
-        //left and right
-        mirrorGrid[0][l] = mirrorGrid[gridHeight - 3][l];
-        mirrorGrid[gridHeight - 2][l] = mirrorGrid[1][l];
-
+        mirrorGrid[l][0] = mirrorGrid[l][gridHeight - 3];  // Top.
+        mirrorGrid[0][l] = mirrorGrid[gridHeight - 3][l];  // Left.
+        mirrorGrid[l][gridHeight - 2] = mirrorGrid[l][1];  // Bot.
+        mirrorGrid[gridHeight - 2][l] = mirrorGrid[1][l];  // Right.
     }
 
-    //swap grids
-    var temp = theGrid;
+    /* Swap grids. */
+    let temp = theGrid;
     theGrid = mirrorGrid;
     mirrorGrid = temp;
 }

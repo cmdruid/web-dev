@@ -12,13 +12,14 @@ const head      = document.querySelector('head'),
       styles    = createElem('link', false, false);
 
 if (!body) console.log("Missing body!");
-body.insertBefore(navbar, body.firstChild);
+body.prepend(navbar, body.firstChild);
+body.style.marginTop = '5em';
 
 if (!head) console.log("Missing head!");
 styles.setAttribute('rel', 'stylesheet');
 styles.setAttribute('type', 'text/css');
 styles.setAttribute('href', 'https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.css');
-head.appendChild(styles);
+head.prepend(styles);
 
 
 navHead.appendChild(document.createTextNode('cmdruid.github.io'));

@@ -1,21 +1,17 @@
-html {
+body {
   background: #101010 url('../img/nasa_universe.jpg') no-repeat center center fixed;
+  background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-}
-
-body {
-  padding:0;
-  margin:0;
 }
 
 canvas {
   display: block;
   margin: 30px auto 0;
-  border: 1px dashed #ccc;
+  border: 1px solid #ccc;
   background: #000;
+  width: 100%;
 }
 
 #output {
