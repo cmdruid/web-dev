@@ -68,19 +68,17 @@ function generateCard(comic) {
   	return card;
 }
 
-async function renderCards(count) {
+async function renderCards(numCards) {
   	/* */
 
   	try {
 		const latestComic = await fetchXKCDComic(),
 			  latestId    = latestComic.num,
 			  container   = document.querySelector('#cardDeck');
-			  
-		console.log(latestComic, latestId);
 
-      	for (let i = 0; i < count; i++) {
+      	for (let i = 0; i < numCards; i++) {
           	const comic = await fetchXKCDComic(latestId - i),
-                  card = generateCard(comic);
+                  card  = generateCard(comic);
 
           	container.appendChild(card);
       	}
