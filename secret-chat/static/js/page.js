@@ -37,6 +37,9 @@ const vm = new Vue ({
 		
 			// Notify user when they lose connection to socket.
 			this.socket.on('disconnect', () => this.addNotification('Lost connection to socket!'));
+
+			// Notify user when they lose connection to socket.
+			this.socket.on('reconnecting', () => this.addNotification('Attempting to reconnect...'));
 		
 			// Decrypt and display messages when received.
 			this.socket.on('MESSAGE', async (message) => {
@@ -190,7 +193,7 @@ const vm = new Vue ({
 		this.addNotification(`Keypair Generated - ${this.getKeySnippet(this.originPublicKey)}`)
 
       	/** Initialize socket.io for client. **/
-		  this.socket = io('https://secret-channels.herokuapp.com');
+		this.socket = io('https://secret-channels.herokuapp.com');
       	this.setupSocketListeners();
     }
 })
