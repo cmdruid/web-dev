@@ -1,17 +1,20 @@
 console.log("git-index loaded!");
 
-const username   = "cmdruid",       // Username on Github.
+const { protocol, host } = window.location,
+      devmode    = host.includes('127.0.0.1'),
+      username   = "cmdruid",       // Username on Github.
       repository = "web-dev",       // Name of the repository.
       branch     = 'master',        // Name of the branch you want to index.
       selector   = '#cardDeck',     // CSS selector for the card container.
       endpoint   = `https://api.github.com/repos/${username}/${repository}`;
+      
 
 renderCards();
 
 function getRootURL() {
     /* Returns origin URL for the webpage DOM. */
 
-    const { protocol, host } = window.location;
+    if (devmode) return `${protocol}//${host}/`;
     return `${protocol}//${host}/${repository}/`;
 }
 
@@ -60,34 +63,41 @@ async function fetchPage(dirName) {
     return html;
 }
 
-function generateCard(dir, page) {
+async function getCover(root, url, page) {
+
+    // If cover metatag is specified, return cover url.
+    const cover = page.querySelector('meta[name="cover"]');
+    if (cover) return url + cover.getAttribute("content");
+
+    // Async function for fetching generated thumbnail from external service.
+    const res = (!devmode) ? await fetch(`//image.thum.io/get/${url}`) : '';
+    return (res.ok) ? `//image.thum.io/get/${url}` : `${root}default-cover.png`;
+}
+
+async function generateCard(dir, page) {
     /* Scrapes the title, description, and meta-tag
        information from a given webpage, then uses it 
        to construct (and return) an HTML element. */
 
-    const url     = getRootURL() + dir + "/",
+    const root    = getRootURL(),
+          url     = root + dir + "/",
           title   = page.querySelector('title'),
           desc    = page.querySelector('meta[name="description"]'),
-          cover   = page.querySelector('meta[name="cover"]');
-          
-    let image = (cover) ? url + cover.getAttribute("content") : `//image.thum.io/get/${url}`;
+          image   = await getCover(root, url, page);
 
     const card    = document.createElement('a'),
           content = document.createElement('div'),
           header  = document.createElement('div');
 
-    if (image) {
+    const div = document.createElement('div'),
+          img = document.createElement('img');
 
-        const div = document.createElement('div'),
-              img = document.createElement('img');
-
-        img.setAttribute('class', 'ui image');
-        img.setAttribute('src', image);
+    img.setAttribute('class', 'ui image');
+    img.setAttribute('src', image);
         
-        div.setAttribute('class', 'image');
-        div.appendChild(img);
-        card.appendChild(div);
-    }
+    div.setAttribute('class', 'image');
+    div.appendChild(img);
+    card.appendChild(div);
 
     card.setAttribute('class', 'ui card raised centered');
     card.setAttribute('href', url);
@@ -122,7 +132,7 @@ async function renderCards() {
 
         for (const dir of dirs) {
             const page = await fetchPage(dir),
-                  card = generateCard(dir, page);
+                  card = await generateCard(dir, page);
 
             container.appendChild(card);
         }
