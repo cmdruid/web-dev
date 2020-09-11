@@ -1,7 +1,10 @@
-const form    = document.querySelector('form'),
+const host    = 'https://proxxxyz.herokuapp.com',
+      form    = document.querySelector('form'),
       error   = document.querySelector('.error'),
       created = document.querySelector('.created');
 
+const { protocol, host } = window.location;
+console.log(protocol, host);
 error.style.display = 'none';
 form.addEventListener('submit', async (e) => {
 
@@ -17,7 +20,7 @@ form.addEventListener('submit', async (e) => {
         body: JSON.stringify({ url: url, slug: slug || undefined })
     };
 
-    const response = await fetch('/url', options);
+    const response = await fetch(`${host}/url`, options);
     if (response.status === 429) displayError('You are sending too many requests. Try again in 30 seconds.');
 
     const result = await response.json();
