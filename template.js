@@ -14,6 +14,12 @@ const head      = document.querySelector('head'),
       ghIcon    = createElem('i', ghBtn, "github-icon"),
       styles    = createElem('link', false, false);
 
+      //<meta property="og:type"        content="website">
+      //<meta property="og:url"         content="">
+      //<meta property="og:image"       content="">
+
+console.log('Location: ', window.location)
+
 if (!head) console.log("Missing head!");
 styles.setAttribute('rel', 'stylesheet');
 styles.setAttribute('type', 'text/css');

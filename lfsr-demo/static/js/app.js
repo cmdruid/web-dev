@@ -37,7 +37,7 @@ formElem.addEventListener("submit", async (e) => {
 
     grid      = new Array(length).fill(new Array(length).fill(0));
     gridSize  = length;
-    generator = LFSR(seed, mask, length);
+    generator = LFSR(length, seed, mask);
     scale     = (dpi * (size / length));
 
     ctx.scale(scale, scale);
