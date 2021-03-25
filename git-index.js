@@ -18,42 +18,47 @@ function getRootURL() {
 
 async function fetchRepoSHA() {
   /** Fetches the SHA key for a given repository.
-    * This key is required for further indexing. */
-  const res  = await fetch(`${endpoint}/branches/${branch}`);
-  if (!res.ok) console.error("Bad response: " + res);
-  return await res.json().commit.sha;
+      This key is required for further indexing. */
+  const res  = await fetch(`${endpoint}/branches/${branch}`),
+        data = await res.json();
+  if (!(res.ok && data)) console.error("Bad response: " + res);
+  return data.commit.sha;
 }
 
 async function fetchBranchIndex(sha) {
-  /** Fetches the folder names within a given
-    * SHA key index and returns them in a list. */
+  /** Fetches folder names within the given
+      SHA key index and returns them in a list. */
   const res  = await fetch(`${endpoint}/git/trees/${sha}`),
-        data = await res.json(),
-        dirs = [];
-  if (!(res && res.status === 200)) console.log("Bad response: " + res);
-  if (!(data && data.tree.length)) console.log("Bad object: " + data);
-  data.tree.forEach(tree => { if (tree.type === "tree") dirs.push(tree.path); });
-  return dirs;
+        data = await res.json();
+  if (!(res.ok && data)) console.log("Bad response: " + res);
+  return data.tree.filter(t => t.type === "tree").map(t => t.path);
 }
 
 async function fetchPage(dirName) {
-  /** Fetches the HTML content of a given webpage
-    * and returns it as a DOM element. */
+  /** Fetches the HTML content of a given 
+      webpage and returns it as a DOM element. */
   const res    = await fetch(getRootURL() + dirName),
         text   = await res.text(),
         parser = new DOMParser(),
         html   = parser.parseFromString(text, 'text/html');
-  if (!(res && html && res.status === 200)) console.log("Bad response: " + res);
+  if (!(res.ok && html)) console.log("Bad response: " + res);
   return html;
 }
 
 async function getCover(root, url, page) {
-    // If cover metatag is specified, return cover url.
-    const cover = page.querySelector('meta[name="cover"]');
-    if (cover) return url + cover.getAttribute("content");
-    // Async function for fetching generated thumbnail from external service.
-    const res = (!devmode) ? await fetch(`//image.thum.io/get/${url}`) : '';
-    return (res.ok) ? `//image.thum.io/get/${url}` : `${root}default-cover.png`;
+  /** If cover metatag is specified, return image url. */
+  let cover = page.querySelector('meta[name="cover"]');
+  if (cover)    return url + cover.getAttribute("content");
+  if (!devmode) return getCacheCover(root, url);
+}
+
+async function getCacheCover(root, url) {
+  /** Fetch thumbnail of site using web service,
+      fall-back to default image. */
+  let res = await fetch(`//image.thum.io/get/${url}`);
+  return (res.ok)
+    ? `//image.thum.io/get/${url}`
+    : `${root}default-cover.png`;
 }
 
 async function generateCard(dir, page) {
