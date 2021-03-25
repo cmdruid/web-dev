@@ -1,7 +1,8 @@
 console.log("base-template.js loaded!");
 
 const cssURL    = "https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.4/dist/semantic.min.css",
-      githubURL = "location.href='https://github.com/cmdruid/web-dev';";
+      githubURL = "location.href='https://github.com/cmdruid/web-dev/tree/master/';",
+      repoURL   = window.location.pathname.match(/[a-z0-9\-]*\/$/gi);
 
 const head      = document.querySelector('head'),
       body      = document.querySelector('body'),
@@ -18,8 +19,6 @@ const head      = document.querySelector('head'),
       //<meta property="og:url"         content="">
       //<meta property="og:image"       content="">
 
-console.log('Location: ', window.location)
-
 if (!head) console.log("Missing head!");
 styles.setAttribute('rel', 'stylesheet');
 styles.setAttribute('type', 'text/css');
@@ -33,7 +32,7 @@ body.style.marginTop = '5em';
 navHead.setAttribute('onclick', "location.href='./';");
 navHead.appendChild(document.createTextNode('cmdruid.github.io'));
 
-ghBtn.setAttribute('onclick', githubURL);
+ghBtn.setAttribute('onclick', githubURL + repoURL);
 ghBtn.appendChild(document.createTextNode("View on GitHub"));
 
 function createElem(element, parent, attr) {
