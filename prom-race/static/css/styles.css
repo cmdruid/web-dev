@@ -30,8 +30,12 @@ h1 {
     margin-bottom: 2.5rem;
 }
 
+h2 {
+    color: #feffd7;
+}
+
 .logo {
-    max-width: 90%;
+    max-width: 80%;
     image-rendering: -moz-crisp-edges;
   }
   
@@ -99,3 +103,53 @@ h1 {
 .created a {
     color: inherit;
 }
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem;
+    max-width: 31.5rem;
+    padding: 1px;
+    border: 1px solid white;
+}
+
+.square {
+    margin: 1px;
+    padding: 2px;
+    width: 3rem;
+    height: 3rem;
+    background-color: #fff;
+}
+
+.square-label {
+    font-size: 1rem;
+    color: #262626;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* Tooltip container */
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: black;
+    color: #fff;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
+    font-family: 'Courier New', Courier, monospace;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }

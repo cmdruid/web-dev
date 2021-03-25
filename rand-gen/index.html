@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"           content="width=device-width, initial-scale=1.0">
+    <meta property="og:title"       content="Linear Feedback Shift Register Demo">
+    <meta property="og:description" content="Cruise through random number space.">
+    <meta property="og:type"        content="website">
+    <meta property="og:url"         content="">
+    <meta property="og:image"       content="">
+    <title>Linear Feedback Shift Register Demo</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.ico"/>
+    <link rel="stylesheet"    type="text/css"     href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <p><h1>LFSR Demo</h1></p>
+        <p><h2>Cruise through random number space.</h2></p>
+    </header>
+    <form class="form">
+        <div class="error"></div>
+        <input class="input" type="text" name="length" placeholder="board size: 100">
+        <input class="input" type="text" name="seed"   placeholder="seed value: random">
+        <input class="input" type="text" name="mask"   placeholder="mask value: default">
+        <button type="submit" class="create">Go!</button>
+    </form>
+    <canvas></canvas>
+    <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>

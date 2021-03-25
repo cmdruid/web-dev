@@ -62,8 +62,8 @@ function sleep(ms) {
 function * generator (params) {
 
     let base  = parseFloat(params.base) || 60.0,
-        a     = parseInt(params.a)      || 0,
-        b     = parseInt(params.b)      || 1,
+        a     = parseFloat(params.a)    || 0.0,
+        b     = parseFloat(params.b)    || 1.0,
         limit = parseInt(params.limit)  || 0;
 
     let temp,  loop,  step,  bias,  phase;

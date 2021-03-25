@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Promise Racing">
+    <meta property="og:description" content="Take a deeper look into your CPU.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <title>Promise Racing - Take a deeper look into your CPU.</title>
+    <link rel="shortcut icon" type="image/x-icon" href="public/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+</head>
+<body>
+    <header>
+        <!-- <img class="logo" src="public/"> -->
+        <p><h1>Promise Racing</h1></p>
+        <p><h2>Take a deeper look into your CPU.</h2></p>
+    </header>
+    <form class="form">
+        <div class="error"></div>
+        <input class="input" type="text" name="numCars"   placeholder="# of cars">
+        <input class="input" type="text" name="numLaps"   placeholder="# of laps">
+        <input class="input" type="text" name="startLine" placeholder="starting line">
+        <button type="submit" class="create">Start race!</button>
+    </form>
+    <div class="grid"></div>
+    <canvas class="display"></canvas>
+    <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
