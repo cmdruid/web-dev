@@ -1,0 +1,48 @@
+<navbar>
+  <style>
+    .fadein {
+      display: block;
+      opacity: 1;
+      animation: opacity 700ms ease-in-out normal;
+      -moz-animation: opacity 700ms ease-in-out normal;
+      -ms-animation: opacity 700ms ease-in-out normal;
+      -o-animation: opacity 700ms ease-in-out normal;
+      -webkit-animation: opacity 700ms ease-in-out normal;
+    }
+
+    @keyframes opacity { 
+      from { opacity:0; } 
+      to { opacity: 1; } 
+    }
+    @-moz-keyframes opacity { 
+      from { opacity: 0; } 
+      to { opacity: 1; } 
+    }
+    @-ms-keyframes opacity { 
+      from {opacity:0; } 
+      to { opacity: 1; } 
+    }
+    @-o-keyframes opacity { 
+      from {opacity:0; } 
+      to { opacity: 1; } 
+    }
+    @-webkit-keyframes opacity { 
+      from { opacity:0; } 
+      to { opacity: 1; } 
+    }
+  </style>
+  <div class="ui fixed inverted menu fadein">
+    <div class="ui container">
+      <div class="header item" id="home-link">
+        <i class="code icon"></i>
+        cmdruid.github.io
+      </div>
+      <div class="item right">
+        <div class="ui green github button" id="github-link">
+          <i class="github icon"></i>
+          View on GitHub
+        </div>
+      </div>
+    </div>
+  </div>
+</navbar>
