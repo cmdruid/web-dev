@@ -1,15 +1,13 @@
 console.log("navbar.js loaded!");
 
-console.log(window.location)
-
 async function main() {
-  const repopath = `https://github.com/cmdruid/web-dev/tree/master`,
+  const [ repo, path ] = getURL();
+  const ghURL    = `https://github.com/cmdruid${repo}tree/master${path}`,
         cssURL   = 'https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css',
         localdir = document.currentScript.src.match(/^.*\//)[0];
 
   loadLink('fomantic-ui', cssURL);
   loadNav(localdir + 'navbar.html');
-  
   async function loadNav(path) {
     const navbar  = loadHTML(await fetchHTML(path)),
           homeBtn = navbar.querySelector('#home-link'),
@@ -17,10 +15,14 @@ async function main() {
     if (!navbar) console.log("Elements failed to load!");
     document.body.prepend(navbar);
     homeBtn.setAttribute('onclick', `location.href='${window.location.origin}';`);
-    ghBtn.setAttribute('onclick', `location.href='${repopath}';`);
+    ghBtn.setAttribute('onclick', `location.href='${ghURL}';`);
   }
 
   function getURL() {
+    let devmode = window.location.hostname.includes('127.0.0.1'),
+        isRoot  = !window.location.pathname;
+    if (devmode || isRoot) return [ '/web-dev/', '' ];
+    return window.location.pathname.match(/^(\/[\w\-]*\/)(.*)$/); 
   }
 
   async function fetchHTML(path) {
