@@ -1,9 +1,9 @@
 console.log("navbar.js loaded!");
 
+console.log(window.location)
+
 async function main() {
-  const username = 'cmdruid'
-        reponame = 'web-dev'
-        repopath = `https://github.com/${username}/${reponame}/tree/master${window.location.pathname}`,
+  const repopath = `https://github.com/cmdruid/web-dev/tree/master`,
         cssURL   = 'https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css',
         localdir = document.currentScript.src.match(/^.*\//)[0];
 
@@ -18,6 +18,9 @@ async function main() {
     document.body.prepend(navbar);
     homeBtn.setAttribute('onclick', `location.href='${window.location.origin}';`);
     ghBtn.setAttribute('onclick', `location.href='${repopath}';`);
+  }
+
+  function getURL() {
   }
 
   async function fetchHTML(path) {
